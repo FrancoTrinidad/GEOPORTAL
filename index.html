@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geoportal de Chilpancingo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="js/mapa.js"></script>
+</head>
+<body>
+  <header>
+    <span class="marca" aria-hidden="true">⌖</span>
+    <div>
+      <h1>Geoportal de Chilpancingo</h1>
+      <p>Chilpancingo de los Bravo, Guerrero</p>
+    </div>
+    <button id="tema" type="button" aria-pressed="false">Tema claro</button>
+  </header>
+  <main>
+    <aside aria-labelledby="titulo-capas">
+      <label class="busqueda" for="buscar">Buscar en el mapa</label>
+      <input id="buscar" type="search" placeholder="Colonia, gasolinera o taller" autocomplete="off" disabled>
+      <ul id="resultados" aria-label="Resultados de búsqueda"></ul>
+      <h2 id="titulo-capas">Capas del mapa</h2>
+      <div id="capas"></div>
+      <div class="consulta">
+        <h2>Consultas espaciales</h2>
+        <p>Selecciona una colonia para ver cuántas gasolineras contiene.</p>
+        <button id="cercanos" type="button" aria-pressed="false" disabled>Buscar talleres a 500 m</button>
+        <div id="respuesta" role="status"></div>
+        <small>Datos ficticios</small>
+      </div>
+      <p id="estado" role="status">Cargando capas…</p>
+      <button id="ajustar" type="button" disabled>Encuadrar capas visibles</button>
+    </aside>
+    <section class="visor" aria-label="Mapa de Chilpancingo"><div id="mapa"></div></section>
+  </main>
+</body>
+</html>

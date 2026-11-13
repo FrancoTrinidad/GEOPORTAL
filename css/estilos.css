@@ -1,0 +1,147 @@
+* { box-sizing: border-box; }
+
+:root {
+  color-scheme: dark;
+  --texto: #f3edff;
+  --suave: #c5b9e4;
+  --fondo: #0d091b;
+  --panel: #1b1338;
+  --borde: #493779;
+  --rosa: #ed3682;
+  --amarillo: #f8db62;
+  background: var(--fondo);
+  color: var(--texto);
+  font: 16px "DM Sans", system-ui, sans-serif;
+}
+
+:root.claro {
+  color-scheme: light;
+  --texto: #21163b;
+  --suave: #534569;
+  --fondo: #f7f3ff;
+  --panel: #fffaff;
+  --borde: #b8a7d6;
+}
+
+body, h1, h2, p { margin: 0; }
+header {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  padding: .7rem clamp(1rem, 3vw, 2rem);
+  background: #cb2068;
+  color: white;
+}
+
+.marca { font-size: 1.8rem; line-height: 1; }
+h1 { font-size: clamp(1.05rem, 3vw, 1.45rem); font-weight: 800; letter-spacing: -.03em; }
+header p { font-size: .8rem; margin-top: .12rem; }
+#tema {
+  margin-left: auto;
+  flex: none;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 999px;
+}
+
+main {
+  display: grid;
+  grid-template-columns: minmax(17rem, 21rem) minmax(0, 1fr);
+  min-height: calc(100dvh - 4rem);
+}
+
+aside {
+  padding: 1.2rem;
+  background: var(--panel);
+  border-right: 2px solid var(--borde);
+}
+
+.busqueda, h2 { display: block; font-size: .93rem; font-weight: 800; margin-bottom: .5rem; }
+#buscar {
+  width: 100%;
+  min-height: 2.8rem;
+  padding: .65rem .8rem;
+  font: inherit;
+  color: var(--texto);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+}
+
+#buscar::placeholder { color: var(--suave); font-size: .85rem; }
+#resultados { padding: 0; margin: .55rem 0 1.25rem; list-style: none; font-size: .85rem; }
+#resultados li + li { margin-top: .25rem; }
+#resultados button { width: 100%; text-align: left; }
+#capas { display: grid; gap: .45rem; }
+
+#capas label {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: .65rem;
+  padding: .7rem .75rem;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+#capas label:has(input:checked) {
+  border-color: var(--capa);
+  background: color-mix(in srgb, var(--capa) 12%, var(--panel));
+}
+
+input[type=checkbox] { margin: 0; width: 1rem; height: 1rem; accent-color: var(--rosa); }
+.muestra { width: .7rem; height: .7rem; border-radius: 50%; }
+.muestra.poligono { border-radius: 2px; }
+.total { color: var(--suave); font-size: .75rem; }
+
+.consulta {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--amarillo);
+  color: #231833;
+  font-size: .86rem;
+  line-height: 1.45;
+}
+
+.consulta small { display: block; margin-top: .8rem; font-weight: 700; }
+.consulta ol { margin: .55rem 0 0; padding-left: 1.25rem; }
+#cercanos { margin-top: .65rem; color: white; background: #302051; border-color: #302051; }
+#cercanos[aria-pressed=true] { background: #8b2053; }
+#respuesta:not(:empty) { margin-top: .55rem; }
+#estado { margin: 1rem 0 .55rem; color: var(--suave); font-size: .8rem; }
+
+button {
+  padding: .52rem .7rem;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+  background: var(--fondo);
+  color: var(--texto);
+  font: 700 .82rem "DM Sans", system-ui, sans-serif;
+}
+
+button:enabled { cursor: pointer; }
+button:enabled:hover { filter: brightness(1.2); }
+button:disabled { opacity: .6; }
+:focus-visible { outline: 2px solid var(--rosa); outline-offset: 3px; }
+
+.visor { position: relative; min-height: 490px; }
+#mapa { position: absolute; inset: 0; background: var(--fondo); }
+#mapa.seleccionando, #mapa.seleccionando .leaflet-interactive { cursor: crosshair; }
+:root:not(.claro) .leaflet-tile { filter: grayscale(1) invert(1) brightness(.67) sepia(.18) hue-rotate(215deg); }
+.leaflet-control-zoom a, .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: var(--panel);
+  color: var(--texto);
+}
+.leaflet-popup-content { font-family: "DM Sans", system-ui, sans-serif; }
+.leaflet-popup-content strong { display: block; margin-bottom: .35rem; }
+
+@media (max-width: 700px) {
+  main { grid-template-columns: 1fr; }
+  aside { border-right: 0; border-bottom: 2px solid var(--borde); }
+  .visor { min-height: max(380px, 60dvh); }
+}
