@@ -1,15 +1,19 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Geoportal de Chilpancingo</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap">
   <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/mejoras.css">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script defer src="js/mapa.js"></script>
 </head>
+
 <body>
   <header>
     <span class="marca" aria-hidden="true">⌖</span>
@@ -22,10 +26,47 @@
   <main>
     <aside aria-labelledby="titulo-capas">
       <label class="busqueda" for="buscar">Buscar en el mapa</label>
-      <input id="buscar" type="search" placeholder="Colonia, gasolinera o taller" autocomplete="off" disabled>
+      <input id="buscar" type="search" placeholder="Colonia, gasolinera o taller" autocomplete="off"
+        aria-keyshortcuts="/" disabled>
       <ul id="resultados" aria-label="Resultados de búsqueda"></ul>
+
       <h2 id="titulo-capas">Capas del mapa</h2>
       <div id="capas"></div>
+
+      <section class="panel" aria-labelledby="titulo-vista">
+        <h2 id="titulo-vista">Vista</h2>
+        <label class="campo">Mapa base
+          <select id="base">
+            <option value="osm">Calles (OpenStreetMap)</option>
+            <option value="claro">Claro (CARTO)</option>
+            <option value="satelite">Satélite (Esri)</option>
+          </select>
+        </label>
+        <label class="opcion">
+          <input id="coropleta" type="checkbox">
+          Colorear colonias según sus gasolineras
+        </label>
+      </section>
+
+      <details class="panel" id="filtros">
+        <summary>Filtros</summary>
+        <fieldset>
+          <legend>Gasolineras</legend>
+          <label class="opcion"><input id="f-diesel" type="checkbox"> Solo con diésel</label>
+          <label class="opcion"><input id="f-24h" type="checkbox"> Solo abiertas 24 h</label>
+        </fieldset>
+        <fieldset>
+          <legend>Talleres</legend>
+          <label class="opcion"><input id="f-domicilio" type="checkbox"> Solo con servicio a domicilio</label>
+          <label class="campo">Especialidad
+            <select id="f-especialidad">
+              <option value="">Todas</option>
+            </select>
+          </label>
+        </fieldset>
+        <button id="f-limpiar" type="button">Quitar filtros</button>
+      </details>
+
       <div class="consulta">
         <h2>Consultas espaciales</h2>
         <p>Selecciona una colonia para ver cuántas gasolineras contiene.</p>
@@ -33,11 +74,31 @@
         <div id="respuesta" role="status"></div>
         <small>Datos ficticios</small>
       </div>
+
+      <section class="panel herramientas" aria-labelledby="titulo-herramientas">
+        <h2 id="titulo-herramientas">Herramientas</h2>
+        <div class="fila-botones">
+          <button id="ubicacion" type="button">Mi ubicación</button>
+          <button id="medir" type="button" aria-pressed="false">Medir distancia</button>
+          <button id="exportar" type="button">Exportar GeoJSON</button>
+        </div>
+        <div id="respuesta-ubicacion" role="status"></div>
+        <div id="medicion" role="status"></div>
+        <small>Clic derecho en el mapa copia las coordenadas. Esc cancela la herramienta activa.</small>
+      </section>
+
+      <section class="panel" aria-labelledby="titulo-estadisticas">
+        <h2 id="titulo-estadisticas">Estadísticas</h2>
+        <div id="estadisticas"></div>
+      </section>
+
       <p id="estado" role="status">Cargando capas…</p>
       <button id="ajustar" type="button" disabled>Encuadrar capas visibles</button>
     </aside>
-    <section class="visor" aria-label="Mapa de Chilpancingo"><div id="mapa"></div></section>
+    <section class="visor" aria-label="Mapa de Chilpancingo">
+      <div id="mapa"></div>
+    </section>
   </main>
 </body>
-</html>
 
+</html>
